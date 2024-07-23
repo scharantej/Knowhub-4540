@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progress</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+<h1>Progress</h1>
+<table class="table">
+<thead>
+<tr>
+<th>Title</th>
+<th>Platform</th>
+<th>Progress</th>
+<th>Update</th>
+</tr>
+</thead>
+<tbody>
+{% for course in courses %}
+<tr>
+<td>{{ course.title }}</td>
+<td>{{ course.platform }}</td>
+<td>
+<div class="progress">
+<div class="progress-bar" role="progressbar" style="width: {{ course.progress }}%" aria-valuenow="{{ course.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+</td>
+<td>
+<form action="/update_progress" method="post">
+<input type="hidden" name="course_id" value="{{ course.id }}">
+<input type="number" name="progress" min="0" max="100" value="{{ course.progress }}">
+<button type="submit" class="btn btn-primary">Update</button>
+</form>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</body>
+</html>
+
